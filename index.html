@@ -292,27 +292,26 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    
-    });
-    const bar=document.getElementById('scroll-progress');
-    window.addEventListener('scroll',()=>{bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';},{passive:true});
-    const nav=document.getElementById('nav');
-    const syncNav=()=>nav.classList.toggle('scrolled',window.scrollY>24);
-    syncNav();window.addEventListener('scroll',syncNav,{passive:true});
-    const toggle=document.getElementById('navToggle');
-    toggle.addEventListener('click',()=>nav.classList.toggle('mobile-open'));
-    document.getElementById('mobileMenu').querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('mobile-open')));
-    const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    function countUp(el){const t=parseInt(el.dataset.target),d=1800,t0=performance.now();(function tick(now){const p=Math.min((now-t0)/d,1),ep=1-Math.pow(1-p,3);el.textContent=Math.round(ep*t);if(p<1)requestAnimationFrame(tick);else el.textContent=t;})(t0);}
-    const cio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}});},{threshold:.5});
-    document.querySelectorAll('.count').forEach(el=>cio.observe(el));
-    const pg=document.getElementById('processGrid'),pl=document.getElementById('processLine');
-    if(pg){const steps=pg.querySelectorAll('.step');new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){pl&&pl.classList.add('animated');steps.forEach((s,i)=>setTimeout(()=>s.classList.add('lit'),i*320));}});},{threshold:.25}).observe(pg);}
-    const ha=document.getElementById('heroAlpha');
-    window.addEventListener('scroll',()=>{if(ha)ha.style.transform='translateY(calc(-50% + '+window.scrollY*.22+'px))';},{passive:true});
+    const bar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => { bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; }, { passive: true });
+    const nav = document.getElementById('nav');
+    const syncNav = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+    syncNav(); window.addEventListener('scroll', syncNav, { passive: true });
+    const toggle = document.getElementById('navToggle');
+    toggle.addEventListener('click', () => nav.classList.toggle('mobile-open'));
+    document.getElementById('mobileMenu').querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('mobile-open')));
+    const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    function countUp(el) { const t = parseInt(el.dataset.target), d = 1800, t0 = performance.now(); (function tick(now) { const p = Math.min((now - t0) / d, 1), ep = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(ep * t); if (p < 1) requestAnimationFrame(tick); else el.textContent = t; })(t0); }
+    const cio = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } }); }, { threshold: .5 });
+    document.querySelectorAll('.count').forEach(el => cio.observe(el));
+    const pg = document.getElementById('processGrid'), pl = document.getElementById('processLine');
+    if (pg) { const steps = pg.querySelectorAll('.step'); new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { pl && pl.classList.add('animated'); steps.forEach((s, i) => setTimeout(() => s.classList.add('lit'), i * 320)); } }); }, { threshold: .25 }).observe(pg); }
+    const ha = document.getElementById('heroAlpha');
+    window.addEventListener('scroll', () => { if (ha) ha.style.transform = 'translateY(calc(-50% + ' + window.scrollY * .22 + 'px))'; }, { passive: true });
   </script>
 </body>
 </html>
+
 
 
