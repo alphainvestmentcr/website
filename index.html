@@ -12,14 +12,14 @@
     :root{--bg:#0A0A0A;--bg-soft:#111111;--bg-elev:#161616;--line:rgba(201,168,76,.18);--line-soft:rgba(255,255,255,.06);--gold:#C9A84C;--gold-soft:#b8973f;--gold-dim:rgba(201,168,76,.55);--gold-glow:rgba(201,168,76,.12);--text:#EDE7D7;--text-dim:#A8A293;--text-mute:#6E6A60;--serif:"Cormorant Garamond","Times New Roman",serif;--sans:"DM Sans",system-ui,-apple-system,sans-serif;--maxw:1240px;--ease:cubic-bezier(.25,.1,.25,1);--ease-out:cubic-bezier(0,0,.2,1)}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;cursor:none}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;mix-blend-mode:overlay}
-    .cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:screen}
-    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--gold-dim);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .35s,height .35s,border-color .35s}
-    .cursor.hovering{width:14px;height:14px}
-    .cursor-ring.hovering{width:52px;height:52px;border-color:var(--gold)}
+    
+    
+    
+    
     #scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));z-index:1001;width:0;box-shadow:0 0 10px var(--gold-dim);transition:width .08s linear}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 40px}
     .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 0;transition:background .4s,padding .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
@@ -36,7 +36,7 @@
     .nav-links a:hover::after{transform:scaleX(1)}
     .nav-cta{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:12px 24px;border:1px solid var(--gold);transition:background .25s,color .25s,box-shadow .25s}
     .nav-cta:hover{background:transparent;color:var(--gold);box-shadow:0 0 24px var(--gold-glow)}
-    .nav-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--text);width:42px;height:42px;align-items:center;justify-content:center;cursor:none}
+    .nav-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--text);width:42px;height:42px;align-items:center;justify-content:center}
     .nav-toggle svg{width:18px;height:18px;pointer-events:none}
     .mobile-menu{display:none}
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 120px;overflow:hidden}
@@ -50,7 +50,7 @@
     .hero h1 em{font-style:italic;color:var(--gold)}
     .hero p{font-size:16px;color:var(--text-dim);max-width:500px;line-height:1.8;margin-bottom:44px}
     .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:16px 28px;border:1px solid;transition:all .3s var(--ease);cursor:none}
+    .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:16px 28px;border:1px solid;transition:all .3s var(--ease)}
     .btn-primary{color:var(--bg);background:var(--gold);border-color:var(--gold)}
     .btn-primary:hover{background:transparent;color:var(--gold);box-shadow:0 0 28px var(--gold-glow)}
     .btn-ghost{color:var(--text-dim);background:transparent;border-color:var(--line)}
@@ -138,13 +138,11 @@
     .reveal.in{opacity:1;transform:translateY(0)}
     .delay-1{transition-delay:.12s}.delay-2{transition-delay:.24s}.delay-3{transition-delay:.36s}.delay-4{transition-delay:.48s}
     @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.process-grid{grid-template-columns:repeat(2,1fr)}.process-grid::before,.process-line{display:none}.footer-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:768px){.section-head{grid-template-columns:1fr}.philosophy-grid{grid-template-columns:1fr;gap:48px}.services-grid{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr}.metric+.metric::before{display:none}.metric{border-top:1px solid var(--line-soft)}.nav-links,.nav-cta{display:none}.nav-toggle{display:flex}.nav.mobile-open .mobile-menu{display:flex;flex-direction:column;gap:0;padding:12px 0 24px;border-top:1px solid var(--line-soft)}.mobile-menu a{padding:16px 40px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--line-soft);transition:color .25s}.mobile-menu a:hover{color:var(--gold)}.footer-grid{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;gap:16px;text-align:center}.hero-alpha-bg{opacity:.4;right:-10%}.cursor,.cursor-ring{display:none}body{cursor:auto}.btn,.nav-cta,.nav-toggle{cursor:pointer}}
+    @media(max-width:768px){.section-head{grid-template-columns:1fr}.philosophy-grid{grid-template-columns:1fr;gap:48px}.services-grid{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr}.metric+.metric::before{display:none}.metric{border-top:1px solid var(--line-soft)}.nav-links,.nav-cta{display:none}.nav-toggle{display:flex}.nav.mobile-open .mobile-menu{display:flex;flex-direction:column;gap:0;padding:12px 0 24px;border-top:1px solid var(--line-soft)}.mobile-menu a{padding:16px 40px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--line-soft);transition:color .25s}.mobile-menu a:hover{color:var(--gold)}.footer-grid{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;gap:16px;text-align:center}.hero-alpha-bg{opacity:.4;right:-10%}.cursor,body{cursor:auto}.btn,.nav-cta,.nav-toggle{cursor:pointer}}
     @media(max-width:480px){.container{padding:0 24px}.cta-row{flex-direction:column;align-items:stretch}.btn{justify-content:center}.process-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
   <div id="scroll-progress"></div>
 
   <nav class="nav" id="nav">
@@ -294,14 +292,7 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-    (function animRing(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-    document.querySelectorAll('a,button,.service,.pillar').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{cursor.classList.add('hovering');ring.classList.add('hovering');});
-      el.addEventListener('mouseleave',()=>{cursor.classList.remove('hovering');ring.classList.remove('hovering');});
+    
     });
     const bar=document.getElementById('scroll-progress');
     window.addEventListener('scroll',()=>{bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';},{passive:true});
@@ -323,3 +314,4 @@
   </script>
 </body>
 </html>
+
