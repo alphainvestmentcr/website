@@ -79,6 +79,7 @@
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 120px;overflow:hidden}
     .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(201,168,76,.07),transparent 60%),radial-gradient(ellipse 50% 40% at 5% 90%,rgba(201,168,76,.04),transparent 60%);pointer-events:none}
     .hero-line{position:fixed;left:40px;top:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent 0%,var(--gold-dim) 15%,var(--gold-dim) 85%,transparent 100%);opacity:.35;z-index:1;pointer-events:none}
+    .scroll-dot{position:fixed;left:36px;top:15%;width:7px;height:7px;border-radius:50%;background:var(--gold);z-index:2;pointer-events:none;box-shadow:0 0 8px var(--gold-dim),0 0 18px rgba(201,168,76,.25);opacity:0}
     .hero-alpha-bg{position:absolute;right:-3%;top:50%;transform:translateY(-50%);font-family:var(--serif);font-style:italic;font-size:clamp(280px,38vw,580px);color:transparent;-webkit-text-stroke:1px rgba(201,168,76,.055);pointer-events:none;user-select:none;line-height:1;will-change:transform;z-index:0}
     .hero-inner{position:relative;z-index:1;max-width:720px}
     .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:16px}
@@ -173,7 +174,7 @@
     .legal a:hover{color:var(--text-dim)}
     .reveal{}
     @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.process-grid{grid-template-columns:repeat(2,1fr)}.process-grid::before,.process-line{display:none}.footer-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:768px){.section-head{grid-template-columns:1fr}.philosophy-grid{grid-template-columns:1fr;gap:48px}.services-grid{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr}.metric+.metric::before{display:none}.metric{border-top:1px solid var(--line-soft)}.nav-links,.nav-cta{display:none}.nav-toggle{display:flex}.nav.mobile-open .mobile-menu{display:flex;flex-direction:column;gap:0;padding:12px 0 24px;border-top:1px solid var(--line-soft)}.mobile-menu a{padding:16px 40px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--line-soft);transition:color .25s}.mobile-menu a:hover{color:var(--gold)}.footer-grid{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;gap:16px;text-align:center}.hero-alpha-bg{opacity:.4;right:-10%}.btn,.nav-cta,.nav-toggle{cursor:pointer}}
+    @media(max-width:768px){.section-head{grid-template-columns:1fr}.philosophy-grid{grid-template-columns:1fr;gap:48px}.services-grid{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr}.metric+.metric::before{display:none}.metric{border-top:1px solid var(--line-soft)}.nav-links,.nav-cta{display:none}.nav-toggle{display:flex}.nav.mobile-open .mobile-menu{display:flex;flex-direction:column;gap:0;padding:12px 0 24px;border-top:1px solid var(--line-soft)}.mobile-menu a{padding:16px 40px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--line-soft);transition:color .25s}.mobile-menu a:hover{color:var(--gold)}.footer-grid{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;gap:16px;text-align:center}.hero-alpha-bg{opacity:.4;right:-10%}.btn,.nav-cta,.nav-toggle{cursor:pointer}.hero-line,.scroll-dot{display:none}}
     @media(max-width:480px){.container{padding:0 24px}.cta-row{flex-direction:column;align-items:stretch}.btn{justify-content:center}.process-grid{grid-template-columns:1fr}}
 
     /* ============ CROSS-BROWSER: backdrop-filter fallback ============ */
@@ -215,6 +216,7 @@
 
   <header class="hero" id="top">
     <div class="hero-line" aria-hidden="true"></div>
+    <div class="scroll-dot" id="scrollDot" aria-hidden="true"></div>
     <div class="hero-alpha-bg" aria-hidden="true" id="heroAlpha">α</div>
     <div class="container hero-inner">
       <div class="eyebrow reveal">Oficina de Administración Patrimonial  Escazú, Costa Rica</div>
@@ -366,7 +368,16 @@
       .to('.hero h1',     { opacity: 1, y: 0, duration: 1.1 }, 0.65)
       .to('.hero > .container > p', { opacity: 1, y: 0, duration: 0.9 }, 0.9)
       .to('.cta-row',     { opacity: 1, y: 0, duration: 0.8 }, 1.1)
-      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.7 }, 1.3);
+      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.7 }, 1.3)
+      .to('#scrollDot',   { opacity: 1, duration: 0.6 }, 1.5);
+
+    // ── SCROLL DOT ─────────────────────────────────────────────
+    gsap.fromTo('#scrollDot',
+      { top: '15%' },
+      { top: '85%', ease: 'none',
+        scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.4 }
+      }
+    );
 
     // ── METRICS ────────────────────────────────────────────────
     gsap.set('.metric', { opacity: 0, y: 50 });
