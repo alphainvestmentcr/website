@@ -7,7 +7,7 @@
 
 ## Sitio en vivo
 
-🌐 **[alphainvestmentcr.com](https://alphainvestmentcr.com)**
+🌐 **[alphainvestmentcr.github.io/website](https://alphainvestmentcr.github.io/website)**
 
 ## GitHub Pages
 El sitio se publica desde la rama main en la raíz del repo.
