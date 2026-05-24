@@ -162,9 +162,10 @@
     .testimonial-quote::after{content:'\201D';color:var(--gold);opacity:.5}
     .testimonial-author{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-mute);display:flex;align-items:center;justify-content:center;gap:16px}
     .testimonial-author::before,.testimonial-author::after{content:'';width:40px;height:1px;background:var(--line)}
-    .final-cta{padding:140px 0;position:relative;overflow:hidden;background:#080809}
+    .final-cta{padding:140px 0;position:relative;overflow:hidden;background:#0A0A0A}
+    .final-cta::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
     .final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(201,168,76,.06),transparent 70%);pointer-events:none}
-    .final-cta-inner{max-width:700px;margin:0 auto;text-align:center}
+    .final-cta-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;z-index:1}
     .final-cta h2{font-family:var(--serif);font-size:clamp(32px,4vw,54px);font-weight:300;line-height:1.2;margin-bottom:24px;letter-spacing:-.01em}
     .final-cta h2 em{font-style:italic;color:var(--gold)}
     .final-cta p{font-size:15px;color:var(--text-dim);line-height:1.78;margin-bottom:44px}
