@@ -100,7 +100,7 @@
     .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
     .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:16px 32px;border:1px solid;border-radius:999px;transition:all .3s var(--ease)}
     .btn-primary{color:var(--bg);background:var(--gold);border-color:var(--gold)}
-    .btn-primary:hover{background:transparent;color:var(--gold);box-shadow:0 0 18px rgba(201,168,76,.14);}
+    .btn-primary:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
     .btn-ghost{color:var(--text-dim);background:transparent;border-color:var(--line)}
     .btn-ghost:hover{color:var(--gold);border-color:var(--gold-dim)}
     .arrow::after{content:''}
@@ -487,17 +487,6 @@
     }
 
     // ── MAGNETIC BUTTONS ───────────────────────────────────────
-    document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        gsap.to(btn, { x: (e.clientX - r.left - r.width  / 2) * 0.05,
-                       y: (e.clientY - r.top  - r.height / 2) * 0.05,
-                       duration: 0.5, ease: 'power1.out' });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'power2.out' });
-      });
-    });
   </script>
 </body>
 </html>
