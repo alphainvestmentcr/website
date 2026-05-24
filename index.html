@@ -120,6 +120,7 @@
     .section-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px}
     .section-tag{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
     .section-tag::before{content:'◆';font-size:4px;color:var(--gold);flex-shrink:0;line-height:1}
+    .section-tag--plain::before{content:none}
     .section-title{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.2;letter-spacing:-.01em}
     .section-title em{font-style:italic;color:var(--gold)}
     .section-sub{font-size:15px;color:var(--text-dim);line-height:1.78;align-self:end}
@@ -310,7 +311,7 @@
 
   <section class="final-cta" id="contacto">
     <div class="container final-cta-inner">
-      <div class="section-tag reveal" style="justify-content:center">Contacto</div>
+      <div class="section-tag section-tag--plain reveal" style="justify-content:center">Contacto</div>
       <h2 class="reveal delay-1">Conversemos sobre el <em>futuro</em> de su patrimonio.</h2>
       <p class="reveal delay-2">Agende una consulta privada con uno de nuestros asesores. Le acompañaremos en cada paso, con la confidencialidad y la atención que su caso requiere.</p>
       <div class="cta-row reveal delay-3" style="justify-content:center">
