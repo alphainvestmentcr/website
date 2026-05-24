@@ -271,6 +271,186 @@ Apply to sections in this order to create a near-invisible depth arc as user scr
 
 ---
 
+## Phase 2.10 — Depth, Shadows & Atmospheric Fusion (Key Technique)
+
+This is the visual core of the design. The illusion that the asset *belongs* in the scene
+(rather than being pasted on top) requires **four layers** working together.
+
+### Z-Index Layer Map (hero)
+
+```
+[z: 0]  .hero::before   — radial depth gradient (accent glow + dark vignette)
+[z: 0]  .hero::after    — fine gold grid texture (64×64 crosshatch)
+[z: 1]  .hero-asset     — the atmospheric PNG image
+[z: 1]  .hero > .container  — CSS grid wrapper (positions text column)
+[z: 2]  .hero-inner     — text / CTAs (always rendered above the asset)
+```
+
+> **Rule:** text column must have `z-index: 2`; asset has `z-index: 1`. Both sit on top of
+> the `::before` / `::after` pseudo-elements at `z-index: 0`.
+
+---
+
+### Layer 1 — Two-Layer Radial Gradient (`.hero::before`)
+
+Two gradients stacked in one `background` declaration:
+
+```css
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    /* 1. Accent glow anchored where the asset sits */
+    radial-gradient(ellipse 55% 80% at 88% 55%,
+                    rgba([ACCENT_RGB], .09), transparent 65%),
+    /* 2. Dark vignette — darkens the scene perimeter */
+    radial-gradient(ellipse 80% 80% at 50% 50%,
+                    transparent 35%, rgba(0,0,0,.45) 100%);
+}
+```
+
+| Parameter | Effect | Tuning guide |
+|---|---|---|
+| `at 88% 55%` | Glow center — match to asset anchor | Move left if asset is more centered |
+| `55% 80%` | Glow ellipse size | Make wider for large/wide assets |
+| `rgba(.09)` | Glow intensity | `.06` subtle · `.14` vivid |
+| `rgba(0,0,0,.45)` | Vignette strength | `.3` light · `.65` dramatic |
+
+---
+
+### Layer 2 — Fine Texture Grid (`.hero::after`)
+
+A barely-visible crosshatch at ~4% opacity adds tactile "printed matter" quality:
+
+```css
+.hero::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba([ACCENT_RGB], .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba([ACCENT_RGB], .04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+```
+
+- `64px 64px` → medium grid. Use `96px` for coarser, `40px` for finer.
+- Opacity `.04` → barely perceptible. Raise to `.07` for a visible pattern.
+- Apply the **same technique** to the final CTA section for visual consistency.
+
+---
+
+### Layer 3 — CSS Mask Fusion (`.hero-asset`)
+
+**Critical distinction: `drop-shadow` vs `box-shadow`**
+
+| Property | Follows shape | Use for |
+|---|---|---|
+| `filter: drop-shadow(…)` | ✅ Pixel-perfect on transparent PNG | Hero atmospheric asset |
+| `box-shadow: …` | ❌ Rectangle bounding box only | Buttons, cards, nav |
+
+```css
+.hero-asset {
+  position: absolute;
+  right: 8%;       /* distance from viewport edge — decrease to push asset left */
+  bottom: 0;       /* anchored to bottom — asset "stands" in the scene */
+  height: 92%;     /* relative to hero height — gives scale */
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;      /* GSAP controls entrance — starts invisible */
+
+  /* Mask: fades the edge of the asset that faces the text column */
+  -webkit-mask-image: linear-gradient(to left, #000 52%, transparent 100%);
+          mask-image: linear-gradient(to left, #000 52%, transparent 100%);
+
+  /* Initial resting glow (replaced by breathing animation after entrance) */
+  filter: drop-shadow(0 0 60px rgba([ACCENT_RGB], .20));
+}
+```
+
+**Mask stop % reference:**
+
+| Stop value | Visual result | Best for |
+|---|---|---|
+| `38%` | Heavy fade, asset barely intrudes on text | Large/wide assets |
+| `52%` | Balanced — default, works for most assets | General use |
+| `65%` | Light fade, more asset is visible | Thin / portrait assets |
+| `80%` | Minimal fade — only the very edge softens | Purely decorative bg |
+
+**Asset position reference:**
+
+| Goal | Adjust |
+|---|---|
+| Push asset toward text | Decrease `right` (e.g. `8%` → `2%`) or go negative (`right: -4%`) |
+| Pull asset off screen (cropped) | Increase `right` (e.g. `8%` → `18%`) |
+| Taller / more imposing | Increase `height` (`92%` → `100vh`) |
+| Smaller / more subtle | Decrease `height` + increase `right` |
+| Left-side asset | Change to `left: 8%`; flip mask direction to `to right` |
+
+---
+
+### Layer 4 — Breathing Glow (CSS Animation, post-GSAP)
+
+The breathing glow must start **only after** GSAP finishes the entrance animation.
+Use the `onComplete` callback to toggle a CSS class — this prevents GSAP and CSS
+animations from conflicting on the `filter` property:
+
+```js
+// In GSAP entrance timeline:
+.to('#heroAsset', {
+  opacity: 0.96, x: 0, duration: 1.1, ease: 'power2.out',
+  onComplete: () => document.getElementById('heroAsset').classList.add('asset-live')
+}, 0.5)
+```
+
+```css
+/* Inactive until JS adds .asset-live */
+.hero-asset.asset-live {
+  animation: asset-breathe 6s ease-in-out infinite;
+}
+
+@keyframes asset-breathe {
+  0%, 100% { filter: drop-shadow(0 0  60px rgba([ACCENT_RGB], .20)); }
+     50%   { filter: drop-shadow(0 0 110px rgba([ACCENT_RGB], .44)); }
+}
+
+/* Always respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero-asset.asset-live { animation: none; }
+}
+```
+
+**Glow tuning:**
+
+| Param | Subtle | Default | Dramatic |
+|---|---|---|---|
+| Resting radius | `40px` | `60px` | `90px` |
+| Peak radius | `70px` | `110px` | `180px` |
+| Resting opacity | `.12` | `.20` | `.35` |
+| Peak opacity | `.28` | `.44` | `.65` |
+| Duration | `4s` | `6s` | `10s` |
+
+---
+
+### Global Film-Grain (all sections, `body::after`)
+
+Applied page-wide via inline SVG fractalNoise — no external file needed:
+
+```css
+body::after {
+  content: ''; position: fixed; inset: 0;
+  pointer-events: none; z-index: 9990;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .028;          /* ~3% — barely perceptible */
+  mix-blend-mode: overlay; /* blends into dark bg naturally */
+}
+```
+
+- Raise opacity to `.05` for visible grain (moody/film look)
+- Lower to `.015` for ultra-subtle texture (safe for all brand tones)
+- `mix-blend-mode: overlay` works well on dark backgrounds; switch to `screen` for mid-tones
+
+---
+
 ## Phase 3 — HTML Structure
 
 ```html
