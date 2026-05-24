@@ -84,6 +84,11 @@
     .hero-split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;width:100%}
     .hero-text{max-width:560px}
     .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;opacity:0}
+    .hero-logo-wrap{position:relative;width:100%}
+    .hero-logo-wrap::before,.hero-logo-wrap::after{content:'';position:absolute;width:40px;height:40px;border-color:rgba(201,168,76,.5);border-style:solid}
+    .hero-logo-wrap::before{top:-10px;left:-10px;border-width:1px 0 0 1px}
+    .hero-logo-wrap::after{bottom:-10px;right:-10px;border-width:0 1px 1px 0}
+    .hero-logo{width:100%;max-width:480px;display:block;border:1px solid rgba(201,168,76,.1)}
     .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:16px}
     .eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);flex-shrink:0}
     .hero h1{font-family:var(--serif);font-size:clamp(40px,5.5vw,70px);font-weight:300;line-height:1.1;letter-spacing:-.01em;margin-bottom:28px}
@@ -230,43 +235,9 @@
         </div>
       </div>
       <div class="hero-visual" id="heroVisual" aria-hidden="true">
-        <svg viewBox="0 0 460 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px">
-          <!-- Outer frame -->
-          <rect x="1" y="1" width="458" height="498" stroke="rgba(201,168,76,0.14)" stroke-width="1"/>
-          <!-- Inner frame -->
-          <rect x="18" y="18" width="424" height="464" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
-          <!-- Corner brackets TL -->
-          <path d="M1 56 L1 1 L56 1" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
-          <!-- Corner brackets TR -->
-          <path d="M404 1 L459 1 L459 56" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
-          <!-- Corner brackets BL -->
-          <path d="M1 444 L1 499 L56 499" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
-          <!-- Corner brackets BR -->
-          <path d="M404 499 L459 499 L459 444" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
-          <!-- Top label -->
-          <text x="230" y="72" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="4" text-anchor="middle">ALPHA INVESTMENT</text>
-          <line x1="38" y1="84" x2="168" y2="84" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
-          <line x1="292" y1="84" x2="422" y2="84" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
-          <!-- Large ghost alpha -->
-          <text x="234" y="326" font-family="Cormorant Garamond,serif" font-style="italic" font-size="310" fill="none" stroke="rgba(201,168,76,0.06)" stroke-width="1" text-anchor="middle">α</text>
-          <!-- Divider -->
-          <line x1="38" y1="352" x2="422" y2="352" stroke="rgba(201,168,76,0.14)" stroke-width="1"/>
-          <!-- Metric 1 -->
-          <text x="72" y="384" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(201,168,76,0.45)" letter-spacing="3">AÑOS</text>
-          <text x="72" y="416" font-family="Cormorant Garamond,serif" font-size="34" fill="#C9A84C" font-weight="300">25</text>
-          <!-- Separator -->
-          <line x1="172" y1="366" x2="172" y2="424" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
-          <!-- Metric 2 -->
-          <text x="192" y="384" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(201,168,76,0.45)" letter-spacing="3">ACTIVOS</text>
-          <text x="192" y="416" font-family="Cormorant Garamond,serif" font-size="34" fill="#C9A84C" font-weight="300">$150M+</text>
-          <!-- Separator -->
-          <line x1="326" y1="366" x2="326" y2="424" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
-          <!-- Metric 3 -->
-          <text x="346" y="384" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(201,168,76,0.45)" letter-spacing="3">RETORNO</text>
-          <text x="346" y="416" font-family="Cormorant Garamond,serif" font-size="34" fill="#C9A84C" font-weight="300">20%</text>
-          <!-- Bottom tagline -->
-          <text x="230" y="462" font-family="Cormorant Garamond,serif" font-size="12" fill="rgba(237,231,215,0.25)" letter-spacing="2" text-anchor="middle" font-style="italic">Administración Patrimonial · Escazú, CR</text>
-        </svg>
+        <div class="hero-logo-wrap">
+          <img src="logo.png" alt="Alpha Investment" class="hero-logo">
+        </div>
       </div>
     </div>
     <div class="scroll-hint" aria-hidden="true"></div>
